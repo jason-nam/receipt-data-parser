@@ -1,4 +1,4 @@
-# receipt-data-parser
+# Receipt OCR Data Parser
  Understand and extract information from OCR data using LayoutLM
  
 ## Installation
