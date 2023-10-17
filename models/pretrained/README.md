@@ -1,2 +1,2 @@
 # Pretrained Models
-Pretrained LayoutLM models or their weights
+Pretrained language models or their weights
