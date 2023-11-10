@@ -1,0 +1,21 @@
+# parsing csv file
+
+import csv
+
+from regex_util import extract_data_with_regex
+from llm_util import extract_data_with_llm
+from constants import CSV_FILE_PATH
+
+def parse_receipt_data(file_path):
+    with open(file_path, newline="") as file:
+        csv.reader(csvfile)
+        for row in reader:
+            text = row[4]
+            extracted_data = extract_data_with_regex(text)
+            if not extracted_data:
+                extracted_data = extracted_data_with_llm(text)
+                
+            #TODO
+
+if __name__ == "__main__":
+    parse_receipt_data(CSV_FILE_PATH)
