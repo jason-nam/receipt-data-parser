@@ -12,10 +12,12 @@ def parse_receipt_data(file_path):
         for row in reader:
             text = row[4]
             extracted_data = extract_data_with_regex(text)
-            if not extracted_data:
-                extracted_data = extracted_data_with_llm(text)
+
+            # if not extracted_data:
+            #     extracted_data = extracted_data_with_llm(text)
                 
             #TODO
 
 if __name__ == "__main__":
-    parse_receipt_data(CSV_FILE_PATH)
+    path = CSV_FILE_PATH + "PXL_20231106_204751723.csv"
+    parse_receipt_data(path)
