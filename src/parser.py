@@ -8,7 +8,7 @@ from constants import CSV_FILE_PATH
 
 def parse_receipt_data(file_path):
     with open(file_path, newline="") as file:
-        csv.reader(csvfile)
+        reader = csv.reader(file)
         for row in reader:
             text = row[4]
             extracted_data = extract_data_with_regex(text)
