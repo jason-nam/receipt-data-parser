@@ -2,6 +2,7 @@
 
 import csv
 
+from group_item import main
 from regex_util import extract_data_with_regex
 from llm_util import extract_data_with_llm
 from constants import CSV_FILE_PATH

@@ -52,8 +52,8 @@ def group_items(data):
                 price_parts.append(text + sorted_cluster[i + 1][4])
             elif is_price(text):
                 price_parts.append(text)
-            elif is_quantity(text):
-                quantity = int(text)
+            # elif is_quantity(text):
+            #     quantity = int(text)
             else:
                 item_name += text + ' '
 
@@ -68,25 +68,30 @@ def group_items(data):
                 continue
 
         if item_name and price is not None:
-            items.append({'item': item_name.strip(), 'quantity': quantity, 'price': price})
+            # items.append({'item': item_name.strip(), 'quantity': quantity, 'price': price})
+            items.append({'item': item_name.strip(), 'price': price})
 
         # print(items)
+
+    return items
+
+def main(file):
+    data = read_csv(file)
+    clustered_data = cluster_lines(data)
+    items = group_items(clustered_data)
 
     return items
 
 if __name__ == "__main__":
 
     files = list(Path(CSV_FILE_PATH).glob('*.[cC][sS]*[vV]'))
-
-    print(files)
     
     for file in files:
         print(file)
-        data = read_csv(file)
-        clustered_data = cluster_lines(data)
-        items = group_items(clustered_data)
+        items = main(file)
 
         for item in items:
-            print(f"Item: {item['item']}, Quantity: {item['quantity']}, Price: {item['price']}")
+            # print(f"Item: {item['item']}, Quantity: {item['quantity']}, Price: {item['price']}")
+            print(f"Item: {item['item']}, Price: {item['price']}")
 
         print("\n")
