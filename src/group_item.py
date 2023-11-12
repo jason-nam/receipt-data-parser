@@ -1,15 +1,11 @@
-import csv
 from sklearn.cluster import DBSCAN
 import numpy as np
 from pathlib import Path
 import re
 
-from constants import CSV_FILE_PATH
+from util import read_csv
 
-def read_csv(file_path):
-    with open(file_path, newline='', encoding='utf-8') as csvfile:
-        data = list(csv.reader(csvfile))
-    return data
+from constants import CSV_FILE_PATH
 
 def is_price(text):
     match = re.search(r'(\d+\.\d+)', text)
@@ -72,6 +68,19 @@ def group_items(data):
             items.append({'item': item_name.strip(), 'price': price})
 
         # print(items)
+
+    return items
+
+def group_item_receipt(data=None, file=None):
+    if not data:
+        try: 
+            data = read_csv(file)
+        except ValueError:
+            print(f"File: {file} is wrong file path or was not given.")
+            return None
+        
+    clustered_data = cluster_lines(data)
+    items = group_items(clustered_data)
 
     return items
 
