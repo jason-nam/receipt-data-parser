@@ -3,9 +3,12 @@ import numpy as np
 from pathlib import Path
 import re
 
-from util import read_csv
-
-from constants import CSV_FILE_PATH
+try:
+    from .util import read_csv
+    from .constants import CSV_FILE_PATH
+except:
+    from util import read_csv
+    from constants import CSV_FILE_PATH
 
 def is_price(text):
     match = re.search(r'(\d+\.\d+)', text)
@@ -84,23 +87,19 @@ def group_item_receipt(data=None, file=None):
 
     return items
 
-def main(file):
-    data = read_csv(file)
-    clustered_data = cluster_lines(data)
-    items = group_items(clustered_data)
-
-    return items
-
-if __name__ == "__main__":
-
+def main():
     files = list(Path(CSV_FILE_PATH).glob('*.[cC][sS]*[vV]'))
     
     for file in files:
-        print(file)
-        items = main(file)
+        data = read_csv(file)
+        clustered_data = cluster_lines(data)
+        items = group_items(clustered_data)
 
         for item in items:
             # print(f"Item: {item['item']}, Quantity: {item['quantity']}, Price: {item['price']}")
             print(f"Item: {item['item']}, Price: {item['price']}")
-
         print("\n")
+
+if __name__ == "__main__":
+    main()
+    
